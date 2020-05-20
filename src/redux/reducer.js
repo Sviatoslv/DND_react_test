@@ -3,7 +3,7 @@ import { changeItemPosition } from "../utils/changeItemPosition";
 
 const initialState = [
   {
-    id: 1,
+    id: 'list_1',
     name: "First",
     innerList: [
       { id: 1, title: "Text" },
@@ -12,7 +12,7 @@ const initialState = [
     ],
   },
   {
-    id: 2,
+    id: 'list_2',
     name: "Second",
     innerList: [
       { id: 11, title: "One" },
@@ -41,7 +41,7 @@ export const reducer = (state = initialState, action) => {
 
     case ADD_LIST:
       const newList = {
-        id: `${listId}`,
+        id: `list_${listId}`,
         name: action.value,
         innerList: [],
       };
@@ -57,7 +57,16 @@ export const reducer = (state = initialState, action) => {
         sourceId,
         oldIndex,
         newIndex,
+        type,
       } = action.payload;
+
+      if (type === 'list') {
+        const newState = [...state];
+        const list = newState.splice(oldIndex, 1);
+        newState.splice(newIndex, 0, ...list);
+
+        return newState;
+      }
 
       if (destinationId === sourceId) {
         return state.map((list) => {
@@ -72,12 +81,13 @@ export const reducer = (state = initialState, action) => {
         });
       }
 
-      const sourceList = state.find(list => String(list.id) === sourceId);
+      const sourceList = state.find((list) => String(list.id) === sourceId);
       const item = sourceList.innerList.splice(oldIndex, 1)[0];
-      console.log('ITEM: ---', item);
+      console.log("ITEM: ---", item);
 
-
-      const destinationList = state.find(list => String(list.id) === destinationId);
+      const destinationList = state.find(
+        (list) => String(list.id) === destinationId
+      );
       destinationList.innerList.splice(newIndex, 0, item);
 
       return [...state];

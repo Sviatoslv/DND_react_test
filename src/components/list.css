@@ -7,10 +7,7 @@
   border-radius: 4px;
   flex-grow: 1;
   margin-left: 10px;
-}
-
-.list:first-of-type {
-  margin-left: 0;
+  box-sizing: border-box;
 }
 
 .list__title {
@@ -18,14 +15,14 @@
   margin-bottom: 10px;
 }
 
-.list__list li {
-  list-style: none;
-  min-width: 32px;
-}
-
 .list__list {
   padding: 0;
   margin-bottom: 16px;
+}
+
+.list__list li {
+  list-style: none;
+  min-width: 32px;
 }
 
 .list__buttons-container {

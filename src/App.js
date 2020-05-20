@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { DragDropContext } from "react-beautiful-dnd";
+import { Droppable } from "react-beautiful-dnd";
 
 import { List } from "./components/List";
 import { Input } from "./components/Input";
@@ -11,7 +12,7 @@ function App() {
   const lists = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  const onDragEnd = ({ destination, draggableId, source }) => {
+  const onDragEnd = ({ destination, draggableId, source, type }) => {
     if (!destination) {
       return;
     }
@@ -25,6 +26,7 @@ function App() {
       sourceId,
       newIndex,
       oldIndex,
+      type,
     };
 
     dispatch(drage_item(payload));
@@ -32,13 +34,22 @@ function App() {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="app">
-        {lists?.map((list) => (
-          <List list={list} key={list.id} />
-        ))}
+      <Droppable droppableId="List_DnD" type="list" direction="horizontal">
+        {(provided) => (
+          <div
+            className="app"
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {lists?.map((list, index) => (
+              <List list={list} key={list.id} index={index}/>
+            ))}
+            {provided.placeholder}
 
-        <Input />
-      </div>
+            <Input />
+          </div>
+        )}
+      </Droppable>
     </DragDropContext>
   );
 }
