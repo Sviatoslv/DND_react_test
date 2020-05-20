@@ -1,0 +1,15 @@
+.text-input {
+  font-size: 14px;
+  padding: 8px;
+  background-color: #f0f3fc;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  list-style: none;
+  color: #2e2e2e;
+  border: none;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+
+  width: calc(100%);
+  resize: none;
+}

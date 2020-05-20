@@ -1,0 +1,14 @@
+.list__item {
+  list-style: none;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  font-size: 14px;
+  color: #494949;
+  background-color: #fff;
+}
+
+/* .list__item:last-of-type {
+  margin-bottom: 0px;
+} */
